@@ -30,11 +30,11 @@ Go to the [Deployment guide](./Deployment/AzureSetup.md) to set up Azure and Cus
 
 ## Sample Customer Insights Customer 360 view
 
-![Customer Insights Customer 360 Sample ](./Deployment/img/CI_CustomerProfile_Sample.PNG)
+![Customer Insights Customer 360 Sample ](./Deployment/img/CI_CustomerProfile_Sample.png)
 
 ## Sample Power BI Customer 360 view
 
-![Power BI Customer 360 Sample ](./Deployment/img/PBI_CustomerProfile_Sample.PNG)
+![Power BI Customer 360 Sample ](./Deployment/img/PBI_CustomerProfile_Sample.png)
 
 ## Architecture
 The architecture diagram below details what you will be building for this Solution Accelerator.

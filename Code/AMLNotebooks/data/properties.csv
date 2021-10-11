@@ -1,0 +1,10 @@
+pid,name,address,state,city,postcode,units
+1111,Property 1,11 Fremont,CA,Fremont,94536,100
+2222,Property 2,22 Hayward,CA,Hayward,94545,200
+3333,Property 3,33 Pleasanton,CA,Pleasanton,94566,150
+4444,Property 4,44 Milpitas,CA,Milpitas,95035,100
+5555,Property 5,55 Milpitas,CA,Milpitas,95035,200
+6666,Property 6,66 Milpitas,CA,Milpitas,95035,100
+7777,Property 7,77 Milpitas,CA,Milpitas,95035,125
+8888,Property 8,88 Milpitas,CA,Milpitas,95035,130
+9999,Property 9,99 Milpitas,CA,Milpitas,95035,150

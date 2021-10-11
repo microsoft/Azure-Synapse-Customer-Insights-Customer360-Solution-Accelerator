@@ -1,0 +1,66 @@
+{
+    "name": "InferencingPipeline",
+    "properties": {
+        "activities": [
+            {
+                "name": "4_run_batch_inference",
+                "type": "SynapseNotebook",
+                "dependsOn": [
+                    {
+                        "activity": "3_preparedata_for_inference",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    }
+                ],
+                "policy": {
+                    "timeout": "7.00:00:00",
+                    "retry": 0,
+                    "retryIntervalInSeconds": 30,
+                    "secureOutput": false,
+                    "secureInput": false
+                },
+                "userProperties": [],
+                "typeProperties": {
+                    "notebook": {
+                        "referenceName": "4_run_batch_inference",
+                        "type": "NotebookReference"
+                    },
+                    "parameters": {
+                        "table_name": {
+                            "value": {
+                                "value": "@activity('3_preparedata_for_inference').output.status.Output.result.exitValue",
+                                "type": "Expression"
+                            },
+                            "type": "string"
+                        }
+                    },
+                    "snapshot": true
+                }
+            },
+            {
+                "name": "3_preparedata_for_inference",
+                "type": "SynapseNotebook",
+                "dependsOn": [],
+                "policy": {
+                    "timeout": "7.00:00:00",
+                    "retry": 0,
+                    "retryIntervalInSeconds": 30,
+                    "secureOutput": false,
+                    "secureInput": false
+                },
+                "userProperties": [],
+                "typeProperties": {
+                    "notebook": {
+                        "referenceName": "3_preparedata_for_inference",
+                        "type": "NotebookReference"
+                    },
+                    "snapshot": true
+                }
+            }
+        ],
+        "annotations": [],
+        "lastPublishTime": "2021-09-07T23:33:56Z"
+    },
+    "type": "Microsoft.Synapse/workspaces/pipelines"
+}

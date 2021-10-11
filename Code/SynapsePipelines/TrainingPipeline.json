@@ -1,0 +1,72 @@
+{
+    "name": "TrainingPipeline",
+    "properties": {
+        "activities": [
+            {
+                "name": "1_preparedata_from_ci",
+                "type": "SynapseNotebook",
+                "dependsOn": [],
+                "policy": {
+                    "timeout": "7.00:00:00",
+                    "retry": 0,
+                    "retryIntervalInSeconds": 30,
+                    "secureOutput": false,
+                    "secureInput": false
+                },
+                "userProperties": [],
+                "typeProperties": {
+                    "notebook": {
+                        "referenceName": "1_preparedata_from_ci",
+                        "type": "NotebookReference"
+                    },
+                    "parameters": {
+                        "resident_file_name": {
+                            "value": "residents.csv",
+                            "type": "string"
+                        }
+                    },
+                    "snapshot": true
+                }
+            },
+            {
+                "name": "2_train_model",
+                "type": "SynapseNotebook",
+                "dependsOn": [
+                    {
+                        "activity": "1_preparedata_from_ci",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    }
+                ],
+                "policy": {
+                    "timeout": "7.00:00:00",
+                    "retry": 0,
+                    "retryIntervalInSeconds": 30,
+                    "secureOutput": false,
+                    "secureInput": false
+                },
+                "userProperties": [],
+                "typeProperties": {
+                    "notebook": {
+                        "referenceName": "2_train_model",
+                        "type": "NotebookReference"
+                    },
+                    "parameters": {
+                        "table_name": {
+                            "value": {
+                                "value": "@activity('1_preparedata_from_ci').output.status.Output.result.exitValue",
+                                "type": "Expression"
+                            },
+                            "type": "string"
+                        }
+                    },
+                    "snapshot": true
+                }
+            }
+        ],
+        "annotations": [],
+        "lastPublishTime": "2021-09-07T23:33:49Z"
+    },
+    "type": "Microsoft.Synapse/workspaces/pipelines"
+}

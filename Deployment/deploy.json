@@ -5,7 +5,7 @@
     "parameters": {
         "prefixName": {
             "type": "string",
-            "defaultValue": "z1",
+            "defaultValue": "z12",
             "minLength": 3,
             "maxLength": 10,
             "metadata": {

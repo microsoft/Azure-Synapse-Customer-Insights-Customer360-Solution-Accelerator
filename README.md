@@ -22,7 +22,7 @@ For additional training and support, please see:
 ## Getting Started
 Start by deploying the required resources to Azure. The button below will deploy Azure Synapse Analytics, Azure Machine Learning and its related resources:
 
-[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fnchandhi%2FNC_Azure-Synapse-Customer-Insights-Customer360-Solution-Accelerator%2Fmain%2FDeployment%2Fdeploy.json)
+[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fmicrosoft%2FAzure-Synapse-Customer-Insights-Customer360-Solution-Accelerator%2Fmain%2FDeployment%2Fdeploy.json)
 
 If you prefer to setup manually, you need to deploy Azure Synapse Analytics, Azure Machine Learning
 

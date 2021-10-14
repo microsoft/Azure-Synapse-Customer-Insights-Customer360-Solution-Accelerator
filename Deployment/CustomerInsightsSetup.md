@@ -121,19 +121,15 @@ The last step is merging the records. If fields need to be combined, that can be
 
 ## Step 3.4: Export
 1. Navigate to the Data > Export tab and click "+ Add export" 
-2. Select "+ Add Connection", select Azure Data Lake Gen 2 
-    * Enter `CISynapseADLS` for the Display name, enter your ADLS account name you are using for this solution accelerator for the Account name 
-    * Enter the ADLS account key for the Account key, 
-        * Navigate to the Azure Portal > your resource group you are using for this solution > the Storage Account used for your Synapse Workspace, select `Account keys` under Security + netowrking, select "Show keys" and copy the Key under Key 1
-    * Enter `ciexport` for the Container and click "Save"
+2. Select "+ Add Connection", select Azure Synapse Analytics 
+    * Enter `CISynapseConnection` for the Display name, select your Azure Subscription and Azure Synapse worksapce you are using for this solution accelerator
+    * Select 'I Agree' check box for Data privacy and compliance and click "Save"
 
-    ![Unify Export](./ci_img/UnifyExportConnection.png)
+    ![Unify Export](./ci_img/UnifyExportSynapseConnection.png)
 
-3. Provide `CustomersExports` for the Display name, select "Customer" under Profiles and click "Save"  
+3. Provide `CustomerProfileExport` for the Display name, enter `ciexport` for Database name, select "Customer" under Profiles and click "Save"  
 
-![Unify Export](./ci_img/UnifyExportADLS.png)
-
-![Unify Export](./ci_img/UnifyExport.png)
+![Unify Export](./ci_img/UnifyExportSynapse.png)
 
 
 # Step 4: Relationship

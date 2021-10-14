@@ -15,7 +15,7 @@ from azureml.core import Workspace
 from sklearn.linear_model import LogisticRegression
 import datetime
 
-def pipeline_steps(customerdata,resident1Data,resident2Data,leaseData,paymentData,surveyData,workorderData,config):
+def pipeline_steps(customerData,resident1Data,resident2Data,leaseData,paymentData,surveyData,workorderData,config):
     #variables from config file
     output_datastore = config["output_datastore"]
     output_path = config["output_path"]
@@ -25,37 +25,39 @@ def pipeline_steps(customerdata,resident1Data,resident2Data,leaseData,paymentDat
     workspace = config["workspace"]
     
     #prepare data
-    df_customer = customerdata.to_pandas_dataframe()
+    df_customer = customerData.to_pandas_dataframe().fillna(value=np.nan)
     
     df_cust_s1 = df_customer[['CustomerId','sourcedata_residents_source1_cid','SurveyEmail']]
     df_cust_s1.columns = ['CustomerId','cid','SurveyEmail']
     df_cust_s2 = df_customer[['CustomerId','sourcedata_residents_source2_cid','SurveyEmail']]
     df_cust_s2.columns = ['CustomerId','cid','SurveyEmail']
     df_customer_ids = pd.concat([df_cust_s1, df_cust_s2])
+    df_customer_ids['cid'] = df_customer_ids['cid'].astype(np.float).astype("Int64")
 
-    df_residentdata = pd.concat([resident1Data.to_pandas_dataframe(), resident2Data.to_pandas_dataframe()])
+    df_residentdata = pd.concat([resident1Data.to_pandas_dataframe().fillna(value=np.nan),
+                                 resident2Data.to_pandas_dataframe().fillna(value=np.nan)])
     
     #Initial Lease Details
-    df_lease_initial = leaseData.to_pandas_dataframe()[["cid","pid","uid","EndDate","LeaseTerm","Type"]]
+    df_lease_initial = leaseData.to_pandas_dataframe().fillna(value=np.nan)[["cid","pid","uid","EndDate","LeaseTerm","Type"]]
     df_lease_initial = df_lease_initial[df_lease_initial['Type'] == 'Application']
     df_lease_initial = df_lease_initial.drop_duplicates(keep="last")
     df_lease_initial = df_lease_initial[["cid","pid","uid","LeaseTerm"]]
     df_lease_initial.columns = ["cid","pid","uid","InitialLeaseTerm"]
     df_lease_initial = df_lease_initial.drop_duplicates(keep="last")
     df_lease_initial = df_lease_initial.reset_index(drop=True)
-    print(df_lease_initial)
+    #print(df_lease_initial)
 
     #Renewals
-    df_lease_renewal = leaseData.to_pandas_dataframe()[["cid","pid","uid","lid","EndDate","LeaseTerm","Type"]]
+    df_lease_renewal = leaseData.to_pandas_dataframe().fillna(value=np.nan)[["cid","pid","uid","lid","EndDate","LeaseTerm","Type"]]
     df_lease_renewal = df_lease_renewal[df_lease_renewal['Type'] == 'Renewal']
     df_lease_renewal['num_renewals'] = df_lease_renewal.groupby(['cid','pid','uid'])['lid'].transform(len)
     #df_lease_renewal['isRenewed'] = np.where(df_lease_renewal['num_renewals']>=1, 'Y', 'N')
     df_lease_renewal = df_lease_renewal.drop_duplicates(keep="last")
     df_lease_renewal = df_lease_renewal.reset_index(drop=True)
-    print(df_lease_renewal)
+    #print(df_lease_renewal)
 
 
-    df_lease_moveout = leaseData.to_pandas_dataframe()[["cid","pid","uid","lid","StartDate","EndDate","MoveOutDate","LeaseTerm","Type"]]
+    df_lease_moveout = leaseData.to_pandas_dataframe().fillna(value=np.nan)[["cid","pid","uid","lid","StartDate","EndDate","MoveOutDate","LeaseTerm","Type"]]
     df_lease_moveout['min_LeaseBeginDate'] = df_lease_moveout.groupby(['cid','pid','uid','lid'])['StartDate'].transform(min)
     df_lease_moveout['max_LeaseEndDate'] = df_lease_moveout.groupby(['cid','pid','uid','lid'])['EndDate'].transform(max)
     df_lease_moveout['max_MoveOutDate'] = df_lease_moveout.groupby(['cid','pid','uid','lid'])['MoveOutDate'].transform(max)
@@ -77,11 +79,11 @@ def pipeline_steps(customerdata,resident1Data,resident2Data,leaseData,paymentDat
     df_leasedata.drop(df_leasedata.filter(regex='_y$').columns.tolist(),axis=1, inplace=True)
     
     df_leasedata = df_leasedata[['cid','pid','uid','InitialLeaseTerm','num_renewals','isRenewed']]
-    
+    #print(df_leasedata)
     # get workorder details
     #import re
 
-    df_workorders = workorderData.to_pandas_dataframe()[["cid","pid","uid","workorder_type","ServiceRequestDate","ServiceCompleteDate"]]
+    df_workorders = workorderData.to_pandas_dataframe().fillna(value=np.nan)[["cid","pid","uid","workorder_type","ServiceRequestDate","ServiceCompleteDate"]]
     df_workorders = df_workorders[["cid","pid","uid","workorder_type"]]
     df_workorders['workorder_type'] = 'WO_' + df_workorders['workorder_type']
     df_workorders['workorder_type'] = df_workorders['workorder_type'].str.replace(r'[^0-9a-zA-Z_$]+', '')
@@ -95,10 +97,11 @@ def pipeline_steps(customerdata,resident1Data,resident2Data,leaseData,paymentDat
     df_workorders
 
     #get survey data
+
     df_surveydata = surveyData.to_pandas_dataframe()[["pid","surveytype","question","answer",'Email']]
     df_surveydata = df_surveydata.merge(df_customer_ids[['SurveyEmail','cid']],left_on=["Email"],right_on=["SurveyEmail"], how='inner')
     
-    df_surveydata = df_surveydata[["cid","pid","surveytype","question","answer"]]  
+    df_surveydata = df_surveydata[["cid","pid","surveytype","question","answer"]] 
     
     df_surveydata['Survey_Question'] = df_surveydata['surveytype'] + '_' + df_surveydata['question']
     df_surveydata['answer'] = df_surveydata['answer'].astype(int)
@@ -114,14 +117,20 @@ def pipeline_steps(customerdata,resident1Data,resident2Data,leaseData,paymentDat
     df_surveydata = df_surveydata.reset_index(drop=True)
     
     df_joined = df_leasedata.merge(df_workorders,on=["cid","pid","uid"], how='left')
+    
     df_joined = df_joined.merge(df_surveydata,on=["cid","pid"], how='left')
     df_joined.drop(df_joined.filter(regex='_x$').columns.tolist(),axis=1, inplace=True)
     df_joined.drop(df_joined.filter(regex='_y$').columns.tolist(),axis=1, inplace=True)
     
     df_joined = df_joined[['cid','pid','uid','InitialLeaseTerm','isRenewed','Movein_OverallSatisfaction','Renewal_OverallSatisfaction','WO_AirConditioning','WO_Dishwasher','WO_Washer']]
     
-    df_joined = df_joined.merge(df_customer_ids[['CustomerId','cid']],on=["cid"], how='inner')
     
+    df_customer_ids = df_customer_ids[['CustomerId','cid']]
+    df_customer_ids.dropna(inplace=True)
+    df_customer_ids['cid'] = df_customer_ids['cid'].astype("int64")
+    
+    df_joined = df_joined.merge(df_customer_ids[['CustomerId','cid']],on=["cid"], how='inner')
+
     df_joined.fillna(0,inplace = True)
     
     if step_type =="test":

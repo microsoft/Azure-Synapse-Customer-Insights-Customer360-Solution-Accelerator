@@ -22,12 +22,6 @@ def score_pipeline(customerData,resident1Data,resident2Data,leaseData,paymentDat
 parser = argparse.ArgumentParser("score")
 
 parser.add_argument("--input_data1", type=str, help="data 1")
-parser.add_argument("--input_data2", type=str, help="data 2")
-parser.add_argument("--input_data3", type=str, help="data 3")
-parser.add_argument("--input_data4", type=str, help="data 4")
-parser.add_argument("--input_data5", type=str, help="data 5")
-parser.add_argument("--input_data6", type=str, help="data 6")
-parser.add_argument("--input_data7", type=str, help="data 7")
 parser.add_argument('--output_path', dest='output_path', required=True)
 parser.add_argument('--output_datastore', dest='output_datastore', required=True)
 
@@ -39,12 +33,14 @@ ws = run.experiment.workspace
 print("geting datasets ...")
 
 customerData = Run.get_context().input_datasets['customer_dataset']
-resident1Data = Run.get_context().input_datasets['resident1_dataset']
-resident2Data = Run.get_context().input_datasets['resident2_dataset']
-leaseData = Run.get_context().input_datasets['lease_dataset']
-paymentData = Run.get_context().input_datasets['payment_dataset']
-surveyData = Run.get_context().input_datasets['survey_dataset']
-workorderData = Run.get_context().input_datasets['workorder_dataset']
+
+resident1Data = Dataset.get_by_name(ws, name='Residents1Data')
+resident2Data = Dataset.get_by_name(ws, name='Residents2Data')
+leaseData = Dataset.get_by_name(ws, name='LeasesData')
+paymentData = Dataset.get_by_name(ws, name='PaymentsData')
+surveyData = Dataset.get_by_name(ws, name='SurveysData')
+workorderData = Dataset.get_by_name(ws, name='WorkOrdersData')
+
 
 print("Output Location", args.output_datastore + args.output_path)
 

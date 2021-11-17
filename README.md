@@ -27,9 +27,10 @@ Start by deploying the required resources to Azure. The button below will deploy
 
 [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fmicrosoft%2FAzure-Synapse-Customer-Insights-Customer360-Solution-Accelerator%2Fmain%2FDeployment%2Fdeploy.json)
 
-If you prefer to setup manually, you need to deploy Azure Synapse Analytics, Azure Machine Learning
-
-Go to the [Deployment guide](./Deployment/AzureSetup.md) to set up Azure and Customer Insights environments to see a customer 360 view in the CI environment and in Power BI Dashboard below:  
+* Go to the [Deployment guide](./Deployment/AzureSetup.md) to set up Azure and Customer Insights environments. 
+* After following the deployment guide, you can see the customer 360 profiles with the two options below: 
+    * [Customer Insights environment](https://home.ci.ai.dynamics.com/) 
+    * Power BI Dashboard you configured in the [CI Step 11](https://github.com/microsoft/Azure-Synapse-Customer-Insights-Customer360-Solution-Accelerator/blob/main/Deployment/CustomerInsightsSetup.md#step-11-power-bi-set-up)
 
 ## Sample Customer Insights Customer 360 view
 

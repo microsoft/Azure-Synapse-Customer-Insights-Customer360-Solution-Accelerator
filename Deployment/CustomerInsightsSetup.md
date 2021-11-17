@@ -7,25 +7,43 @@ Please follow the steps below to set up the Customer Insights (CI) environment
 In this step you will create a Customer Insights environment, that you will use for this solution accelerator. 
 
 1. Navigate to the [Customer Insights workspace](https://home.ci.ai.dynamics.com/) to create a new environment 
-2. Provide a name for your workspace, select `Production` under "Type", select the region your Azure resources are deployed under "Region" 
+2. Select Country/Region 
+
+![Customer Insights](./ci_img/CIRegion.png)
+
+3. Select `Audiance insights` focus
+
+![Customer Insights](./ci_img/CIFocus.png)
+
+4. Select `Individual consumers (B-to-C)` business
+
+![Customer Insights](./ci_img/CIBusiness.png)
+
+5. Provide a name for your workspace, select `Production` under "Type", select the region your Azure resources are deployed under "Region" 
 
 ![Create Environment](./ci_img/CreateEnvironment.png) 
 
-3. In the Advance Settings, select `Azure Data Lake Storage Gen 2` under "Save output to" 
-4. Select `Azure subscription` under "Connect your storage account using"  
+6. In the Advance Settings, select `Azure Data Lake Storage Gen 2` under "Save output to" 
+7. Select `Azure subscription` under "Connect your storage account using" and click "Next" 
     * choose your Subscription, Resource Group, Storage Account 
 
 ![Storage Account for CI](./ci_img/CIEnvironmentSetUp.png)
+
+8. For this solution leave the Microsoft Dataverse as the default blank and click "Next"
+
+![Storage Account for CI](./ci_img/CIMicrosoftDataverse.png)
+
+9. Click "Create"
 
 
 # Step 2: Ingest Data
 In this step you will bring the data into the CI environment from your Azure Synapse Workspace. 
 1. In the CI environment, navigate to the Data > Data Source
-2. Select `Add Data Source` and select `Connect to a Common Data Model folder`, provide a name for your Common Data Model folder and click "Next". 
+2. Select `Add Data Source` and select `Azure data lake storage`, provide a name for the data source and click "Next". 
 
 ![Import Common Data Model](./ci_img/ImportMethod.png) 
 
-3. Under "Connect your storage account using" select `Azure subscription`
+3. Under "Connect your storage account using" select `Azure subscription`, select your subscription, resource group and storage account you are using for this solution. Enter `data` for the Container
 
 ![Storage Details](./ci_img/StorageDetails.png)
 
@@ -51,30 +69,36 @@ In order to merge the data in later steps you will need to map at least 2 entiti
 
 Mapping happens against default CI field types (e.g. ID, Person.Age, Location.City). This unifies data ingested from different sources and formats/types used in those sources.
 
-1. Under Unify > Map select `residents`, set "cid" to `Person`, set the primary key to `cid` 
+1. Select `+ Select entities` and select all entites 
+
+![Unify entities](./ci_img/UnifyEntities.png)
+
+2. Select `residents_source1`, set "cid" to `Person`, set the primary key to `cid`
 
 ![Unify Map](./ci_img/UnifyMapResident.png)
 
 * **Note**: Repeat the steps above for each source dataset below
 
-2. Select `leases`, set "cid" to `Person`, set the primary key to `lid`
+3. Select `residents_source2`, set "cid" to `Person`, set the primary key to `cid` 
+
+4. Select `leases`, set "cid" to `Person`, set the primary key to `lid`
 <!---
 ![Unify Map](./ci_img/UnifyMapLease.png)
 --->
-3. Select `payments`, set "cid" to `Person`, set the primary key to `paymentid`
+5. Select `payments`, set "cid" to `Person`, set the primary key to `paymentid`
 <!---
 ![Unify Map](./ci_img/UnifyMapPayment.png)
 --->
-4. Select `surveys`, set "cid" to `Person`, set the primary key to `sid`
+6. Select `surveys`, set "cid" to `Person`, set the primary key to `sid`
 <!--
 ![Unify Map](./ci_img/UnifyMapSurvey.png)
 --->
 
-5. Select `workorder`, set "cid" to `Person`, set the primary key to `wid`
+7. Select `workorder`, set "cid" to `Person`, set the primary key to `wid`
 <!---
 ![Unify Map](./ci_img/UnifyMapWorkorder.png)
 --->
-6. Click "Save" 
+8. Click "Save
 
 ## Step 3.2: Match
 Match records between entities based on matching IDs. 
@@ -116,6 +140,7 @@ The last step is merging the records. If fields need to be combined, that can be
 ![Unify Merge](./ci_img/UnifyMergeCombineColumns.png)
 
 4. Rename the Email column from the surveys dataset to `SurveyEmail`
+* **Note**: Make sure you rename this column to `SurveyEmail` as it is used in the Azure Synapse notebooks in later steps.
 
 ![Unify Merge](./ci_img/UnifyMergeSurveyEmail.png)
 
@@ -561,7 +586,7 @@ For the purpose of this solution accelerator, we will use the following model(s)
 7. Review and run your Brands Enrichment 
 
 # Step 10: Set up Lease Renewal Predictions 
-1. Navigate to Step 7 in the [Azure Set Up Documentaion](./AzureSetup.md)
+1. Navigate to Step 6 in the [Azure Set Up Documentaion](https://github.com/microsoft/Azure-Synapse-Customer-Insights-Customer360-Solution-Accelerator/blob/main/Deployment/AzureSetup.md#step-6-set-up-synapse-pipeline) and follow the remaining Azure set up  
 
 ## Step 10.1: Load Data
 In this step you will bring the Lease Renewal Preductions data into the CI environment from your Azure Synapse Workspace. 

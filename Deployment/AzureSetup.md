@@ -32,19 +32,69 @@ In order to perform the necessary actions in Synapse workspace, you will need to
 5. Under the category `Azure Data Lake Storage Gen2` you'll see an item with a name like `xxxxx(xxxxx- Primary)`
 6. Select the container named `Data (Primary)`, select "New Folder" enter `sourcedata` and select "Create" 
 7. Select the `sourcedata` folder, select `Upload` and select following sample data files downloaded from [Data](./Data/) folder
-	- `residents.csv`
+	- `residents_source1.csv`
+	- `residents_source2.csv`
 	- `leases.csv`
 	- `payments.csv`
 	- `surveys.csv`
 	- `workorders.csv`
+	- `properties.csv`
 
 
 # Step 4: Upload Assets and Run Noteboks
 1. Launch the Synapse workspace [Synapse Workspace](https://ms.web.azuresynapse.net/)
 2. Go to `Develop`, click the `+`, and click `Import` to select all notebooks from this repository's [folder](./Code/SynapseNotebooks)
 3. For each of the notebooks, select `Attach to > spark1` in the top dropdown
-4. Configure the parameters in all 6 notebooks 
-	* Note: Only change the parameters but do not run all the notebooks. You will run notebooks 1-5 after the Customer Insights set up. 
+4. Configure the parameters in the following 6 notebooks and publish the changes
+* **Note**: Only change the parameters but do not run all the notebooks. You will run notebooks 1-5 after the Customer Insights set up. 
+	* `00_prepare_sourcedata_for_ci.ipynb`
+		``` 
+		data_lake_account_name = ''
+		file_system_name = 'data'
+		synapse_workspace_name = ''
+		```
+	* `1_preparedata_from_ci.ipynb`
+		``` 
+		data_lake_account_name = ''
+		file_system_name = 'data'
+		resident_file_name = "residents.csv"
+		```
+	* `2_train_model.ipynb`
+		``` 
+		data_lake_account_name = ""
+		file_system_name = "data"
+		table_name = "c360_data.prepareddata"
+
+		#AML workspace details
+		subscription_id = ""
+		resource_group = ""
+		workspace_name = ""
+		```
+	* `3_preparedata_for_inference.ipynb`
+		``` 
+		data_lake_account_name = ''
+		file_system_name = 'data'
+
+		resident_file_name = "residents.csv"
+		```
+	* `4_run_batch_inference.ipynb`
+		``` 
+		data_lake_account_name = ''
+		file_system_name = 'data'
+
+		table_name = "c360_data.preparedinferencedata"
+
+		subscription_id = ""
+		resource_group = ""
+		workspace_name = ""
+		```
+	* `5_prepare_predictionsdata_for_ci.ipynb`
+		``` 
+		data_lake_account_name = ''
+		file_system_name = 'data'
+		synapse_workspace_name = ''
+		```
+
 5. Run the following notebook
 	* `00_prepare_sourcedata_for_ci.ipynb`
 	
@@ -54,7 +104,7 @@ In order to perform the necessary actions in Synapse workspace, you will need to
 In order to perform the necessary actions in Customer Insights, you will need to grant more access.
 [Follow the steps here](https://docs.microsoft.com/en-us/dynamics365/customer-insights/audience-insights/connect-service-principal#grant-permissions-to-the-service-principal-to-access-the-storage-account) to grant the Dynamics 365 AI Customer Insights access to the ADLS Gen 2 storage account you are using for this solution.
 ## Step 5.2: Set Up CI
-1. Navigate to the [CI Set Up Documentaion](./CustomerInsightsSetup.md)
+1. Navigate to the [CI Set Up Documentaion](./CustomerInsightsSetup.md) and follow the steps to set up the Customer Insights Environment. 
 
 # Step 6: Set up Synapse Pipeline
 In order to run the pipelines, you will need to grant more access.
@@ -101,4 +151,4 @@ In this step you will create the Inferencing Pipeline
 
 
 # Step 8: CI Lease Renewal Predictions 
-1. Navigate to step 12 in the [CI Set Up Documentaion](./CustomerInsightsSetup.md)
+1. Navigate to step 10.1 in the [CI Set Up Documentaion](https://github.com/microsoft/Azure-Synapse-Customer-Insights-Customer360-Solution-Accelerator/blob/main/Deployment/CustomerInsightsSetup.md#step-101-load-data)

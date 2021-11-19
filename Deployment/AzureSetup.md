@@ -16,11 +16,12 @@ Before you can upload assests to the Synapse Workspace you will need to add your
 
 ### Step 2.2: Update storage account permisions 
 In order to perform the necessary actions in Synapse workspace, you will need to grant more access.
-1. Go to the Azure Data Lake Storage Account created above
+1. Go to the Azure Data Lake Storage Account for your Synapse Workspace
+> * **Note**: you will see two storage accounts created in the resource group, be sure to select the Synapse Workspace Storage account and **not** the machine learning storage account
 2. Go to the `Access Control (IAM) > + Add > Add role assignment` 
-3. Now click the Role dropdown and select `Storage Blob Data Contributor`
-    - Search for your username and add
-4. Click `Save` at the bottom
+3. Now search and select the `Storage Blob Data Contributor` role and click "Next" 
+4. Click "+ Select members", search and select your username and click "Select" 
+5. Click `Review and assign` at the bottom
 
 [Learn more](https://docs.microsoft.com/azure/synapse-analytics/security/how-to-set-up-access-control)
 
@@ -46,22 +47,23 @@ In order to perform the necessary actions in Synapse workspace, you will need to
 2. Go to `Develop`, click the `+`, and click `Import` to select all notebooks from this repository's [folder](./Code/SynapseNotebooks)
 3. For each of the notebooks, select `Attach to > spark1` in the top dropdown
 4. Configure the parameters in the following 6 notebooks and publish the changes
-* **Note**: Only change the parameters but do not run all the notebooks. You will run notebooks 1-5 after the Customer Insights set up. 
+> * **Note**: Only change the parameters but **do not** run all the notebooks. You will run pipelines that will run notebooks 1-5 in later steps after the Customer Insights set up. 
+
 	* `00_prepare_sourcedata_for_ci.ipynb`
 		``` 
-		data_lake_account_name = ''
+		data_lake_account_name = '' # Synapse ADLS
 		file_system_name = 'data'
 		synapse_workspace_name = ''
 		```
 	* `1_preparedata_from_ci.ipynb`
 		``` 
-		data_lake_account_name = ''
+		data_lake_account_name = '' # Synapse ADLS
 		file_system_name = 'data'
 		resident_file_name = "residents.csv"
 		```
 	* `2_train_model.ipynb`
 		``` 
-		data_lake_account_name = ""
+		data_lake_account_name = "" # Synapse ADLS
 		file_system_name = "data"
 		table_name = "c360_data.prepareddata"
 
@@ -72,25 +74,26 @@ In order to perform the necessary actions in Synapse workspace, you will need to
 		```
 	* `3_preparedata_for_inference.ipynb`
 		``` 
-		data_lake_account_name = ''
+		data_lake_account_name = '' # Synapse ADLS
 		file_system_name = 'data'
 
 		resident_file_name = "residents.csv"
 		```
 	* `4_run_batch_inference.ipynb`
 		``` 
-		data_lake_account_name = ''
+		data_lake_account_name = '' # Synapse ADLS
 		file_system_name = 'data'
 
 		table_name = "c360_data.preparedinferencedata"
 
+		#AML workspace details
 		subscription_id = ""
 		resource_group = ""
 		workspace_name = ""
 		```
 	* `5_prepare_predictionsdata_for_ci.ipynb`
 		``` 
-		data_lake_account_name = ''
+		data_lake_account_name = '' # Synapse ADLS
 		file_system_name = 'data'
 		synapse_workspace_name = ''
 		```
@@ -102,7 +105,13 @@ In order to perform the necessary actions in Synapse workspace, you will need to
 # Step 5: Set up the Customer Insights 
 ## Step 5.1: Add Dynamics 365 AI for Customer Insights Synapse Security Access 
 In order to perform the necessary actions in Customer Insights, you will need to grant more access.
-[Follow the steps here](https://docs.microsoft.com/en-us/dynamics365/customer-insights/audience-insights/connect-service-principal#grant-permissions-to-the-service-principal-to-access-the-storage-account) to grant the Dynamics 365 AI Customer Insights access to the ADLS Gen 2 storage account you are using for this solution.
+1. Go to the Azure Data Lake Storage Account for your Synapse Workspace
+2. Go to the `Access Control (IAM) > + Add > Add role assignment` 
+3. Now search and select the `Storage Blob Data Contributor` role and click "Next" 
+4. Click "+ Select members", search and select `Dynamics 365 AI for Customer Insights` and click "Select" 
+5. Click `Review and assign` at the bottom
+
+> * **Note**: if you cannot find the `Dynamics 365 AI Customer Insights` service principle, [Follow the steps here](https://docs.microsoft.com/en-us/dynamics365/customer-insights/audience-insights/connect-service-principal#grant-permissions-to-the-service-principal-to-access-the-storage-account) to grant the `Dynamics 365 AI Customer Insights` access to the ADLS Gen 2 storage account you are using for this solution.
 ## Step 5.2: Set Up CI
 1. Navigate to the [CI Set Up Documentaion](./CustomerInsightsSetup.md) and follow the steps to set up the Customer Insights Environment. 
 
@@ -116,7 +125,7 @@ In order to run the pipelines, you will need to grant more access.
 
 ## Step 6.1: Training Pipeline 
 In this step you will create the Training Pipeline 
-* **Note:** You will need to manually connect each object in the pipeline.
+> * **Note:** You will need to manually connect each object in the pipeline.
 
 1. Launch the Synapse workspace [Synapse Workspace](https://ms.web.azuresynapse.net/)
 2. Go to `Integration`, click `+` and click `Pipeline` 
@@ -131,7 +140,7 @@ In this step you will create the Training Pipeline
 
 ## Step 6.2: Inferencing Pipeline
 In this step you will create the Inferencing Pipeline 
-* **Note:** You will need to manually connect each object in the pipeline.
+> * **Note:** You will need to manually connect each object in the pipeline.
 
 1. Launch the Synapse workspace [Synapse Workspace](https://ms.web.azuresynapse.net/)
 2. Go to `Integration`, click `+` and click `Pipeline` 

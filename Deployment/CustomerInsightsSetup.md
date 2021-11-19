@@ -1,12 +1,11 @@
 # Dynamics Customer Insights Deployment  
 Please follow the steps below to set up the Customer Insights (CI) environment
 
-
-
 # Step 1: Setup Customer Insights Environment
 In this step you will create a Customer Insights environment, that you will use for this solution accelerator. 
 
-1. Navigate to the [Customer Insights workspace](https://home.ci.ai.dynamics.com/) to create a new environment 
+1. Navigate to the [Customer Insights workspace](https://home.ci.ai.dynamics.com/) to create a new environment
+> * **Note**: if you have used Customer Insights before, you might not see steps 1.1-1.4
 2. Select Country/Region 
 
 ![Customer Insights](./ci_img/CIRegion.png)
@@ -25,7 +24,7 @@ In this step you will create a Customer Insights environment, that you will use 
 
 6. In the Advance Settings, select `Azure Data Lake Storage Gen 2` under "Save output to" 
 7. Select `Azure subscription` under "Connect your storage account using" and click "Next" 
-    * choose your Subscription, Resource Group, Storage Account 
+   > * choose your Subscription, Resource Group, Storage Account (you will see two storage accounts in the dropdown, be sure to select the Synapse Workspace Storage account and **not** the machine learning storage account)
 
 ![Storage Account for CI](./ci_img/CIEnvironmentSetUp.png)
 
@@ -43,7 +42,7 @@ In this step you will bring the data into the CI environment from your Azure Syn
 
 ![Import Common Data Model](./ci_img/ImportMethod.png) 
 
-3. Under "Connect your storage account using" select `Azure subscription`, select your subscription, resource group and storage account you are using for this solution. Enter `data` for the Container
+3. Under "Connect your storage account using" select `Azure subscription`, select your `subscription`, `resource group` and the `Synapse workspace storage account` you are using for this solution. Enter `data` for the Container
 
 ![Storage Details](./ci_img/StorageDetails.png)
 
@@ -77,7 +76,7 @@ Mapping happens against default CI field types (e.g. ID, Person.Age, Location.Ci
 
 ![Unify Map](./ci_img/UnifyMapResident.png)
 
-* **Note**: Repeat the steps above for each source dataset below
+> * **Note**: Repeat the steps above for each source dataset below
 
 3. Select `residents_source2`, set "cid" to `Person`, set the primary key to `cid` 
 
@@ -89,7 +88,7 @@ Mapping happens against default CI field types (e.g. ID, Person.Age, Location.Ci
 <!---
 ![Unify Map](./ci_img/UnifyMapPayment.png)
 --->
-6. Select `surveys`, set "cid" to `Person`, set the primary key to `sid`
+6. Select `surveys`, set the primary key to `sid`
 <!--
 ![Unify Map](./ci_img/UnifyMapSurvey.png)
 --->
@@ -103,26 +102,39 @@ Mapping happens against default CI field types (e.g. ID, Person.Age, Location.Ci
 ## Step 3.2: Match
 Match records between entities based on matching IDs. 
 
-1. Select "+ Add entity" and select `sourcedata:residents_source1` 
-2. Select "+ Add entity" and `sourcedata:residents_source2`
-3. Select "+ Add entity" and select `sourcedata:surveys` 
-4. Select "+ Add rule" under `sourcedata:residents_source2`
-5. Under "Select entity"  select `residents_source1:sourcedata`, "Select field" `Email`, "Normalize" `Whitespaces, Symbols, Text to lower case, and Numerals`
-6. Provide a name for the match rule
+1. Select "+ Set order", select `sourcedata:residents_source1`, `sourcedata:residents_source2`, select "+ Add" at the bottom and select `sourcedata:surveys`
+
+![Unify Match](./ci_img/UnifyMatchSetOrder.png) 
+
+2. Select "+ Add rule" under `sourcedata:residents_source2`
+
+![Unify Match](./ci_img/UnifyMatchSetRule.png) 
+
+3. Under "Select entity"  select `residents_source1:sourcedata`, "Select field" `Email`, "Normalize" `Whitespaces, Symbols, Text to lower case, and Numerals`
+4. Provide a name for the match rule
 
 ![Unify Match](./ci_img/UnifyEmailMatch.png) 
 
-7. Under Deduplicated Records select `sourcedata:residents_source1` and `sourcedata:residents_source2`
-8. Select "+ Add rule" under sourcedata:residents_source1, set the field to `cid`, provide a name for the rule and click "Done" 
-
-![Unify Match Deduplication](./ci_img/UnifyMatchDeduplicationCid.png)
-
-9. Select "+ Add rule" under sourcedata:surveys, set the field to `resident_source1:sourcedata`, set both fields to `Email`, set Normalize to `Whitespaces, Symbols, Text to lower case, and Numerals`, provide a name for the match rule, and click "Done"  
-10. Repeat step 9 for `resident_source2:sourcedata`
+5. Select "+ Add rule" under `sourcedata:surveys`
+6. Under "Select entity"  select `residents_source1:sourcedata`, "Select field" `Email`, "Normalize" `Whitespaces, Symbols, Text to lower case, and Numerals`
+7. Provide a name for the match rule
+8. Select "+ Add rule" under `sourcedata:surveys`
+9. Under "Select entity"  select `residents_source2:sourcedata`, "Select field" `Email`, "Normalize" `Whitespaces, Symbols, Text to lower case, and Numerals`
+10. Provide a name for the match rule
 
 ![Unify Match Deduplication](./ci_img/UnifyEmailMatchSurvey.png)
 
-11. Click "Save" in the top of the Match page and click "Run" 
+
+11. Under Deduplicated Records select "+ Set entities", select `sourcedata:residents_source1` select `Created_date` under "Based on field(s)", `sourcedata:residents_source2`, select `Created_date` under "Based on field(s)" and click "Done" 
+
+![Unify Match Deduplication](./ci_img/UnifyMatchDeduplication.png)
+
+12. Select "+ Add rule" under `sourcedata:residents_source1`, set the field to `cid`, provide a name for the rule and click "Done" 
+
+![Unify Match Deduplication](./ci_img/UnifyMatchDeduplicationCid.png)
+
+13. Select "+ Add rule" under `sourcedata:residents_source2`, set the field to `cid`, provide a name for the rule and click "Done" 
+14. Click "Save" in the top of the Match page 
 
 ## Step 3.3: Merge
 The last step is merging the records. If fields need to be combined, that can be done as well. 
@@ -135,17 +147,17 @@ The last step is merging the records. If fields need to be combined, that can be
 ![Unify Merge](./ci_img/UnifyMergeNamesCombine.png)
 
 3. Repeat these steps for Name, LastName, Gender, Telephone, Country, StreetAddress, City, State, PostCode, DateofBirth, CreatedDate, Source, and Email 
-    * **Note**: Only combine the Email for `resident_source1` and `resident_source2`
+    > * **Note**: Only combine the Email for `resident_source1` and `resident_source2`
 
 ![Unify Merge](./ci_img/UnifyMergeCombineColumns.png)
 
 4. Rename the Email column from the surveys dataset to `SurveyEmail`
-* **Note**: Make sure you rename this column to `SurveyEmail` as it is used in the Azure Synapse notebooks in later steps.
+> * **Note**: Make sure you rename this column to `SurveyEmail` as it is used in the Azure Synapse notebooks in later steps.
 
 ![Unify Merge](./ci_img/UnifyMergeSurveyEmail.png)
 
 ## Step 3.4: Export
-1. Navigate to the Data > Export tab and click "+ Add export" 
+1. Navigate to the Data > Export tab and click "+ Create export" 
 2. Select "+ Add Connection", select Azure Synapse Analytics 
     * Enter `CISynapseConnection` for the Display name, select your Azure Subscription and Azure Synapse worksapce you are using for this solution accelerator
     * Select 'I Agree' check box for Data privacy and compliance and click "Save"

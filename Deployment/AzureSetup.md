@@ -49,54 +49,56 @@ In order to perform the necessary actions in Synapse workspace, you will need to
 4. Configure the parameters in the following 6 notebooks and publish the changes
 > * **Note**: Only change the parameters but **do not** run all the notebooks. You will run pipelines that will run notebooks 1-5 in later steps after the Customer Insights set up. 
 
-	* `00_prepare_sourcedata_for_ci.ipynb`
-		``` 
+* `00_prepare_sourcedata_for_ci.ipynb`
+
+	``` 
 		data_lake_account_name = '' # Synapse ADLS
 		file_system_name = 'data'
 		synapse_workspace_name = ''
-		```
-	* `1_preparedata_from_ci.ipynb`
-		``` 
-		data_lake_account_name = '' # Synapse ADLS
-		file_system_name = 'data'
-		resident_file_name = "residents.csv"
-		```
-	* `2_train_model.ipynb`
-		``` 
-		data_lake_account_name = "" # Synapse ADLS
-		file_system_name = "data"
-		table_name = "c360_data.prepareddata"
+	```
 
-		#AML workspace details
-		subscription_id = ""
-		resource_group = ""
-		workspace_name = ""
-		```
-	* `3_preparedata_for_inference.ipynb`
-		``` 
-		data_lake_account_name = '' # Synapse ADLS
-		file_system_name = 'data'
+* `1_preparedata_from_ci.ipynb`
+	``` 
+	data_lake_account_name = '' # Synapse ADLS
+	file_system_name = 'data'
+	resident_file_name = "residents.csv"
+	```
+* `2_train_model.ipynb`
+	``` 
+	data_lake_account_name = "" # Synapse ADLS
+	file_system_name = "data"
+	table_name = "c360_data.prepareddata"
 
-		resident_file_name = "residents.csv"
-		```
-	* `4_run_batch_inference.ipynb`
-		``` 
-		data_lake_account_name = '' # Synapse ADLS
-		file_system_name = 'data'
+	#AML workspace details
+	subscription_id = ""
+	resource_group = ""
+	workspace_name = ""
+	```
+* `3_preparedata_for_inference.ipynb`
+	``` 
+	data_lake_account_name = '' # Synapse ADLS
+	file_system_name = 'data'
 
-		table_name = "c360_data.preparedinferencedata"
+	resident_file_name = "residents.csv"
+	```
+* `4_run_batch_inference.ipynb`
+	``` 
+	data_lake_account_name = '' # Synapse ADLS
+	file_system_name = 'data'
 
-		#AML workspace details
-		subscription_id = ""
-		resource_group = ""
-		workspace_name = ""
-		```
-	* `5_prepare_predictionsdata_for_ci.ipynb`
-		``` 
-		data_lake_account_name = '' # Synapse ADLS
-		file_system_name = 'data'
-		synapse_workspace_name = ''
-		```
+	table_name = "c360_data.preparedinferencedata"
+
+	#AML workspace details
+	subscription_id = ""
+	resource_group = ""
+	workspace_name = ""
+	```
+* `5_prepare_predictionsdata_for_ci.ipynb`
+	``` 
+	data_lake_account_name = '' # Synapse ADLS
+	file_system_name = 'data'
+	synapse_workspace_name = ''
+	```
 
 5. Run the following notebook
 	* `00_prepare_sourcedata_for_ci.ipynb`

@@ -22,6 +22,26 @@ For additional training and support, please see:
 2. [Dynamics 365 Customer Insights](https://dynamics.microsoft.com/en-us/ai/customer-insights/) 
 3. [Azure Machine Learning](https://azure.microsoft.com/en-us/services/machine-learning/) 
 
+## Overview
+This solution accelerator showcases the cross-solution integration of Azure Synapse Analytics and Dynamics 365 Customer Insights. The [Getting Started guide](https://github.com/microsoft/Azure-Synapse-Customer-Insights-Customer360-Solution-Accelerator#getting-started) helps you through the below steps: 
+1. Deploy all the Azure resources needed for this solution. 
+2. Load the sample data provided as part of the repository or bring your own data
+3. Create Dynamics 365 Customer Insights Environment   
+4. Configure Customer 360 Profiles: 
+    * Load customer data from ADLS/Azure Synapse Analytics to Customer Insights.
+    * Unify customer records coming from different CRM systems based on fields like Email, Last Name, Date of Birth etc. to get to a unique customer record
+    * Configure customer activities like Leases, Workorders, Payments, Surveys
+    * Create Customer Segments to be sent to CRM or other campaign management systems to run promotions for customer retention. Some sample segments: 
+        * Customers whose leases are up for renewal
+        * Customers with many past work orders 
+        * Customer with lower satisfaction scores
+    * Configure data enrichments to know customers affinity to specific brands and interests. 
+3. Intelligence 
+    * Configure Customer Lifetime Value using a pre-built model in CI.
+    * Export the unified customer profiles from CI to Azure Synapse Analytics, train a custom ML model to predict the probablity of a customer renewing their lease, and load the model predictions to CI to be used in Segment creation. 
+4. Connect to Power BI 
+    * Download the Power BI report from this repository and change connections to your environment 
+
 ## Getting Started
 Start by deploying the required resources to Azure. The button below will deploy Azure Synapse Analytics, Azure Machine Learning and its related resources:
 

@@ -38,7 +38,8 @@ In this step you will create a Customer Insights environment, that you will use 
 # Step 2: Ingest Data
 In this step you will bring the data into the CI environment from your Azure Synapse Workspace. 
 1. In the CI environment, navigate to the Data > Data Source
-2. Select `Add Data Source` and select `Azure data lake storage`, provide a name for the data source and click "Next". 
+2. Select `Add Data Source` and select `Azure data lake storage`, provide `sourcedata` for the data source name and click "Next".
+> * **Note**: Make sure you name the data source `sourcedata` as it is used in the Azure Synapse notebooks in later steps.
 
 ![Import Common Data Model](./ci_img/ImportMethod.png) 
 
@@ -156,6 +157,8 @@ The last step is merging the records. If fields need to be combined, that can be
 
 ![Unify Merge](./ci_img/UnifyMergeSurveyEmail.png)
 
+5. Click Run at the top of the Merge tab and select "Run Merge and downstream processes" 
+
 ## Step 3.4: Export
 1. Navigate to the Data > Export tab and click "+ Create export" 
 2. Select "+ Add Connection", select Azure Synapse Analytics 
@@ -164,7 +167,7 @@ The last step is merging the records. If fields need to be combined, that can be
 
     ![Unify Export](./ci_img/UnifyExportSynapseConnection.png)
 
-3. Provide `CustomerProfileExport` for the Display name, enter `ciexport` for Database name, select "Customer" under Profiles and click "Save"  
+3. Provide `CustomerProfileExport` for the Display name, enter `ciexport` for Database name, select "Customer" under Profiles, click "Save" and Run the export. 
 
 ![Unify Export](./ci_img/UnifyExportSynapse.png)
 
@@ -603,15 +606,15 @@ For the purpose of this solution accelerator, we will use the following model(s)
 ## Step 10.1: Load Data
 In this step you will bring the Lease Renewal Preductions data into the CI environment from your Azure Synapse Workspace. 
 1. In the CI environment, navigate to the Data > Data Source
-2. Select `Add Data Source` and select `Connect to a Common Data Model folder`, provide a name for your Common Data Model folder and click "Next". 
+2. Select `Add Data Source` and select `Azure data lake storage`, provide `predictions` for the data source name and click "Next". 
 
 ![Import Common Data Model](./ci_img/ImportMethod.png) 
 
-3. Under "Connect your storage account using" select `Azure subscription`
+3. Under "Connect your storage account using" select `Azure subscription`, select your `subscription`, `resource group` and the `Synapse workspace storage account` you are using for this solution. Enter `data` for the Container
 
 ![Storage Details](./ci_img/StorageDetails.png)
 
-4. Select `synapse`, select `/synapse/default.manifest.cdm.json` and click "Next"
+4. Select the `synapse` folder, select `default.manifest.cdm.json` and click "Next"
 
 ![Model Folder](./ci_img/CommonDataModelFolder2.png)
 

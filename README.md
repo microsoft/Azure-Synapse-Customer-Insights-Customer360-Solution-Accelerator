@@ -35,8 +35,8 @@ This solution accelerator showcases the cross-solution integration of Azure Syna
         * Customers whose leases are up for renewal
         * Customers with many past work orders 
         * Customer with lower satisfaction scores
-    * Configure data enrichments to know customers affinity to specific brands and interests. 
-3. Intelligence 
+    * Configure data enrichments to know customers' affinity to specific brands and interests. 
+5. Create Intelligence 
     * Configure Customer Lifetime Value using a pre-built model in CI.
     * Export the unified customer profiles from CI to Azure Synapse Analytics, train a custom ML model to predict the probablity of a customer renewing their lease, and load the model predictions to CI to be used in Segment creation. 
 4. Connect to Power BI 

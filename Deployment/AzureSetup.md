@@ -113,7 +113,8 @@ In order to perform the necessary actions in Customer Insights, you will need to
 4. Click "+ Select members", search and select `Dynamics 365 AI for Customer Insights` and click "Select" 
 5. Click `Review and assign` at the bottom
 
-> * **Note**: if you cannot find the `Dynamics 365 AI Customer Insights` service principle, [Follow the steps here](https://docs.microsoft.com/en-us/dynamics365/customer-insights/audience-insights/connect-service-principal#grant-permissions-to-the-service-principal-to-access-the-storage-account) to grant the `Dynamics 365 AI Customer Insights` access to the ADLS Gen 2 storage account you are using for this solution.
+> * **Note**: if you cannot find the `Dynamics 365 AI for Customer Insights` service principle, [Follow the steps here](https://docs.microsoft.com/en-us/dynamics365/customer-insights/audience-insights/connect-service-principal#grant-permissions-to-the-service-principal-to-access-the-storage-account) to grant the `Dynamics 365 AI for Customer Insights` access to the ADLS Gen 2 storage account you are using for this solution.
+
 ## Step 5.2: Set Up CI
 1. Navigate to the [CI Set Up Documentaion](./CustomerInsightsSetup.md) and follow the steps to set up the Customer Insights Environment. 
 

@@ -171,6 +171,7 @@ The last step is merging the records. If fields need to be combined, that can be
 
 ![Unify Export](./ci_img/UnifyExportSynapse.png)
 
+4. Navigate to **Step 6** in the [Azure Set Up Documentaion](https://github.com/microsoft/Azure-Synapse-Customer-Insights-Customer360-Solution-Accelerator/blob/main/Deployment/AzureSetup.md#step-6-set-up-aml-pipeline) and follow the Azure set up to complete Step 6 and 7. 
 
 # Step 4: Relationship
 Define the relationship between the Activity Entity 
@@ -267,6 +268,7 @@ In this step you will create Measures for Leases Ending in 90 Days, Life Time Va
 ## Step 6.1: Leases Ending in 90 Days Source 1
 1. Navigate to the Measure tab, click "+ New" and select "Build your own" 
 2. Select "Dimensions", click the trash can icon to remove the dimension and click "Apply" 
+> * **Note**: removing the dimension enables you to create the measure as a Customer Measure vs a Customer Attribute 
 
 ![Measures Leases Dimensions](./ci_img/MeasureRemoveDimensions.png)
 
@@ -601,7 +603,6 @@ For the purpose of this solution accelerator, we will use the following model(s)
 7. Review and run your Brands Enrichment 
 
 # Step 10: Set up Lease Renewal Predictions 
-1. Navigate to Step 6 in the [Azure Set Up Documentaion](https://github.com/microsoft/Azure-Synapse-Customer-Insights-Customer360-Solution-Accelerator/blob/main/Deployment/AzureSetup.md#step-6-set-up-synapse-pipeline) and follow the remaining Azure set up  
 
 ## Step 10.1: Load Data
 In this step you will bring the Lease Renewal Preductions data into the CI environment from your Azure Synapse Workspace. 

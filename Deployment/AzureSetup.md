@@ -6,15 +6,15 @@ Clone or download this repository and navigate to the project's root directory.
 
 # Step 2: Synapse Security Access
 
-### Step 2.1: Add your IP address to Synapse firewall
+### Step 2.1: Add your IP address to Azure Synapse Analytics firewall
 Before you can upload assests to the Synapse Workspace you will need to add your IP address:
 1. Go to the Synapse resouce you created in the previous step. 
 2. Navigate to `Networking` under `Security` on the left hand side of the page.
 3. At the top of the screen click `+ Add client IP`
     ![Update Firewalls](./img/deploy-firewall.png)  
-4. Your IP address should now be visable in the IP list
+4. Your IP address should now be visable in the IP list and click `Save` at the top
 
-### Step 2.2: Update storage account permisions 
+### Step 2.2: Update storage account permissions
 In order to perform the necessary actions in Synapse workspace, you will need to grant more access.
 1. Go to the Azure Data Lake Storage Account for your Synapse Workspace
 > * **Note**: you will see two storage accounts created in the resource group, be sure to select the Synapse Workspace Storage account and **not** the machine learning storage account
@@ -118,7 +118,17 @@ In order to perform the necessary actions in Customer Insights, you will need to
 ## Step 5.2: Set Up CI
 1. Navigate to the [CI Set Up Documentaion](./CustomerInsightsSetup.md) and follow the steps to set up the Customer Insights Environment. 
 
-# Step 6: Set up Synapse Pipeline
+# Step 6: Set Up AML Pipeline
+1. Launch the Azure Machine Learning studio [AML Studio](https://ml.azure.com/)
+2. Go to the `Notebooks` tab in the AML Studio and upload the folder `AML Notebooks` folder and `Data` folder
+3. Go to the `Compute` tab in the AML Studio and click on the `Compute Instances` 
+4. Click `New` and create a new compute instance
+5. Click `Jupyter` and launch the compute instance
+6. Run the following notebooks in order:
+	- `CreateTrainingPipeline.ipynb`
+	- `CreateInferencingPipeline.ipynb` (This step publishes a pipeline that will be used in Customer Insights set up)
+
+# Step 7: Set up Synapse Pipeline
 In order to run the pipelines, you will need to grant more access.
 1. Go to the Azure Machine Learning Service created above
 2. Go to the `Access Control (IAM) > + Add > Add role assignment` 
@@ -126,7 +136,7 @@ In order to run the pipelines, you will need to grant more access.
     - Search for your Synapse Workspace and add
 4. Click `Save` at the bottom
 
-## Step 6.1: Training Pipeline 
+## Step 7.1: Training Pipeline 
 In this step you will create the Training Pipeline 
 > * **Note:** You will need to manually connect each object in the pipeline.
 
@@ -141,7 +151,7 @@ In this step you will create the Training Pipeline
 	* In the designer, click "Add Trigger" > "Trigger Now". The final pipeline should look like:
 	![TrainingPipeline](./img/TrainingPipeline.png)
 
-## Step 6.2: Inferencing Pipeline
+## Step 7.2: Inferencing Pipeline
 In this step you will create the Inferencing Pipeline 
 > * **Note:** You will need to manually connect each object in the pipeline.
 
@@ -156,11 +166,11 @@ In this step you will create the Inferencing Pipeline
 	* In the designer, click "Add Trigger" > "Trigger Now". The final pipeline should look like:
 	![InferencingPipeline](./img/InferencingPipeline.png)
 
-# Step 7: Run Notebook  
+## Step 7.3: Run Notebook  
 1. Launch the Synapse workspace [Synapse Workspace](https://ms.web.azuresynapse.net/)
 4. Configure the parameters and Run the notebooks in the following order
 	* `5_prepare_predictionsdata_for_ci.ipynb`
 
 
-# Step 8: CI Lease Renewal Predictions 
-1. Navigate to step 10.1 in the [CI Set Up Documentaion](https://github.com/microsoft/Azure-Synapse-Customer-Insights-Customer360-Solution-Accelerator/blob/main/Deployment/CustomerInsightsSetup.md#step-101-load-data)
+# Step 8: Continue with CI Set Up 
+1. Navigate to Step 4 in the [CI Set Up Documentaion](https://github.com/microsoft/Azure-Synapse-Customer-Insights-Customer360-Solution-Accelerator/blob/main/Deployment/CustomerInsightsSetup.md#step-4-relationship)

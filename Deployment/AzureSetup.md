@@ -120,7 +120,7 @@ In order to perform the necessary actions in Customer Insights, you will need to
 
 # Step 6: Set Up AML Pipeline
 1. Launch the Azure Machine Learning studio [AML Studio](https://ml.azure.com/)
-2. Go to the `Notebooks` tab in the AML Studio and upload the folder `AML Notebooks` folder and `Data` folder
+2. Go to the `Notebooks` tab in the AML Studio and upload the `AML Notebooks` folder
 3. Go to the `Compute` tab in the AML Studio and click on the `Compute Instances` 
 4. Click `New` and create a new compute instance
 5. Click `Jupyter` and launch the compute instance

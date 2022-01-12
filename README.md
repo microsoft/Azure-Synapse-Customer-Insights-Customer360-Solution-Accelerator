@@ -12,9 +12,6 @@ This solution accelerator helps developers with all the resources needed to buil
 ## Sample Customer 360 Solution Process Flow
 ![Customer 360 Solution Accelerator Introduction](./Deployment/img/SAIntroduction.PNG)
 
-## Customer End-to-End Experience – Shop to Renew
-![Customer End-to-End Experience](./Deployment/img/Customer360_Customer_Journey.png)
-
 ## Prerequisites
 To use this solution accelerator, you will need access to an [Azure subscription](https://azure.microsoft.com/free/) and a Customer Insights Environment. While not required, a prior understanding of Customer Insights, Azure Synapse Analytics and Machine Learning will be helpful.
 

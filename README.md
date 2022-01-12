@@ -6,6 +6,8 @@ Managing customer data from multiple sources and building a unified Customer 360
 
 This solution accelerator helps developers with all the resources needed to build an end-to-end Customer 360 solution.
 
+## Why Customer 360?
+![Why Customer 360?](./Deployment/img/WhyCustomer360.PNG)
 
 ## Sample Customer 360 Solution Process Flow
 ![Customer 360 Solution Accelerator Introduction](./Deployment/img/SAIntroduction.PNG)

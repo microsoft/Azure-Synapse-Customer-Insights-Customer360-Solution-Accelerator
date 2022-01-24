@@ -41,7 +41,6 @@
         "storageMLname": "[replace(replace(toLower(concat(concat('mlstrg',variables('paramName')),variables('uniqueName'))),'-',''),'_','')]",
         
         "appinsightsname": "[concat(variables('machinelearningName'), 'ai')]",
-        "keyvaultname": "[replace(replace(toLower(concat('keyvault',variables('paramName'))),'-',''),'_','')]",
 		"keyvaultname": "[replace(replace(toLower(concat(concat('keyvault',variables('paramName')),variables('uniqueName'))),'-',''),'_','')]",
         
         "StorageBlobDataContributor": "ba92f5b4-2d11-453d-a403-e96b0029c9fe"

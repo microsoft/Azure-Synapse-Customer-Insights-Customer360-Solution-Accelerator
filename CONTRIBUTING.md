@@ -2,8 +2,8 @@
 
 Welcome, and thank you for your interest in contributing. There are many ways to contribute: 
 * [Submit issues](https://github.com/microsoft/Azure-Synapse-Customer-Insights-Customer360-Solution-Accelerator/issues) to report bugs and make suggestions. 
-* Review the [source code changes](https://github.com/microsoft/Azure-Synapse-Customer-Insights-Customer360-Solution-Accelerator/pulls). 
-* Contribute features and fixes by forking the repository and creating a [pull request](https://github.com/microsoft/Azure-Synapse-Customer-Insights-Customer360-Solution-Accelerator/compare). 
+* Review the [source code changes](https://github.com/microsoft/Azure-Synapse-Customer-Insights-Customer360-Solution-Accelerator/compare). 
+* Contribute features and fixes by forking the repository and creating a [pull request](https://github.com/microsoft/Azure-Synapse-Customer-Insights-Customer360-Solution-Accelerator/pulls). 
 
 ## Contributor License Agreement 
 This project welcomes contributors and suggestions. Most contributions require you to agree to a Contributor License Agreement (CLA) declaring that you have the right to, and actually do, grant us the rights to use your contribution. For details, visit [https://cla.opensource.microsoft.com](https://cla.opensource.microsoft.com).

@@ -12,7 +12,7 @@ Before you can upload assests to the Synapse Workspace you will need to add your
 2. Navigate to `Networking` under `Security` on the left hand side of the page.
 3. At the top of the screen click `+ Add client IP`
     ![Update Firewalls](./img/deploy-firewall.png)  
-4. Your IP address should now be visable in the IP list and click `Save` at the top
+4. Your IP address should now be visible in the IP list and click `Save` at the top
 
 ### Step 2.2: Update storage account permissions
 In order to perform the necessary actions in Synapse workspace, you will need to grant more access.
@@ -32,7 +32,7 @@ In order to perform the necessary actions in Synapse workspace, you will need to
 4. Select `Linked`
 5. Under the category `Azure Data Lake Storage Gen2` you'll see an item with a name like `xxxxx(xxxxx- Primary)`
 6. Select the container named `Data (Primary)`, select "New Folder" enter `sourcedata` and select "Create" 
-7. Select the `sourcedata` folder, select `Upload` and select following sample data files downloaded from [Data](./Data/) folder
+7. Select the `sourcedata` folder, select `Upload` and select following sample data files downloaded from [Data](https://github.com/microsoft/Azure-Synapse-Customer-Insights-Customer360-Solution-Accelerator/tree/main/Data) folder
 	- `residents_source1.csv`
 	- `residents_source2.csv`
 	- `leases.csv`
@@ -44,7 +44,7 @@ In order to perform the necessary actions in Synapse workspace, you will need to
 
 # Step 4: Upload Assets and Run Noteboks
 1. Launch the Synapse workspace [Synapse Workspace](https://ms.web.azuresynapse.net/)
-2. Go to `Develop`, click the `+`, and click `Import` to select all notebooks from this repository's [folder](./Code/SynapseNotebooks)
+2. Go to `Develop`, click the `+`, and click `Import` to select all notebooks from this repository's [folder](https://github.com/microsoft/Azure-Synapse-Customer-Insights-Customer360-Solution-Accelerator/tree/main/Code/SynapseNotebooks)
 3. For each of the notebooks, select `Attach to > spark1` in the top dropdown
 4. Configure the parameters in the following 6 notebooks and publish the changes
 > * **Note**: Only change the parameters but **do not** run all the notebooks. You will run pipelines that will run notebooks 1-5 in later steps after the Customer Insights set up. 
@@ -122,15 +122,15 @@ In order to perform the necessary actions in Customer Insights, you will need to
 1. Launch the Azure Machine Learning studio [AML Studio](https://ml.azure.com/)
 2. Go to the `Notebooks` tab in the AML Studio and upload the `AML Notebooks` folder
 3. Go to the `Compute` tab in the AML Studio and click on the `Compute Instances` 
-4. Click `New` and create a new compute instance
-5. Click `Jupyter` and launch the compute instance
+4. Click `New`, select `Standard_DS11_v2` for Virtual Machine Size and click on `Create` to create a new compute instance
+5. Once the state of compute instance changes from `Creating` to `Running`, click on `Jupyter` under Applications to launch the compute instance
 6. Run the following notebooks in order:
 	- `CreateTrainingPipeline.ipynb`
 	- `CreateInferencingPipeline.ipynb` (This step publishes a pipeline that will be used in Customer Insights set up)
 
 # Step 7: Set up Synapse Pipeline
 In order to run the pipelines, you will need to grant more access.
-1. Go to the Azure Machine Learning Service created above
+1. In the Azure Portal, select the Azure Machine Learning Service created above
 2. Go to the `Access Control (IAM) > + Add > Add role assignment` 
 3. Now click the Role dropdown and select `Contributor`
     - Search for your Synapse Workspace and add
@@ -144,7 +144,7 @@ In this step you will create the Training Pipeline
 2. Go to `Integration`, click `+` and click `Pipeline` 
 3. Under Properties provide the pipeline with the following name `TrainingPipeline`
 4. Click the "{}" button at the top right corner to open the Code window
-5. Copy and paste the contents of [TrainingPipeline.json](./Code/SynapsePipelines/TrainingPipeline.json)
+5. Copy and paste the contents of [TrainingPipeline.json](https://github.com/microsoft/Azure-Synapse-Customer-Insights-Customer360-Solution-Accelerator/blob/main/Code/SynapsePipelines/TrainingPipeline.json)
 6. Click OK to apply
 7. Click "Publish All" > "Publish"
 8. Trigger the pipeline
@@ -159,7 +159,7 @@ In this step you will create the Inferencing Pipeline
 2. Go to `Integration`, click `+` and click `Pipeline` 
 3. Under Properties provide the pipeline with the following name `InferencingPipeline`
 4. Click the "{}" button at the top right corner to open the Code window
-5. Copy and paste the contents of [InferencingPipeline.json](./Code/SynapsePipelines/InferencingPipeline.json)
+5. Copy and paste the contents of [InferencingPipeline.json](https://github.com/microsoft/Azure-Synapse-Customer-Insights-Customer360-Solution-Accelerator/blob/main/Code/SynapsePipelines/InferencingPipeline.json)
 6. Click OK to apply
 7. Click "Publish All" > "Publish"
 8. Trigger the pipeline

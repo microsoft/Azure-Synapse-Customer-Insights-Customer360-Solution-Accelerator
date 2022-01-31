@@ -46,7 +46,7 @@ Start by deploying the required resources to Azure. The button below will deploy
 
 [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fmicrosoft%2FAzure-Synapse-Customer-Insights-Customer360-Solution-Accelerator%2Fmain%2FDeployment%2Fdeploy.json)
 
-> * **Note**: This deployment assumes that there is no interference from Azure policies set by your organization. Please adjust the arm template as needed.
+> **Note**: This deployment assumes that there is no interference from Azure policies set by your organization. Please adjust the arm template as needed.
 
 * Go to the [Deployment guide](./Deployment/AzureSetup.md) to set up Azure and Customer Insights environments. 
 * After following the deployment guide, you can see the customer 360 profiles with the two options below: 

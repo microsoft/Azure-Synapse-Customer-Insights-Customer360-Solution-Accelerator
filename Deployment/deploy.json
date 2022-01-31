@@ -1,15 +1,15 @@
 {
-    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     
     "parameters": {
-        "prefixName": {
+        "suffixName": {
             "type": "string",
-            "defaultValue": "z12",
+            "defaultValue": "z1",
             "minLength": 3,
             "maxLength": 10,
             "metadata": {
-                "description": "Name prefix between 3-6 characters with only characters and numbers"
+                "description": "Name the suffix between 3-10 characters with only characters and numbers"
             }
         },
         "AllowAll": {
@@ -18,18 +18,19 @@
                 "true",
                 "false"
             ],
-            "defaultValue": "false"
+            "defaultValue": "false", 
+            "metadata": {
+                "description": "Allow connections from all IP addresses to your workspace's endpoints. You can restrict these permissions to just Azure datacenter IP addresses and/or specific IP address ranges after creating the workspace."
+            }
         }
     },
 
     "variables": {
-        "subscriptionId": "[subscription().subscriptionId]",
         "location": "[resourceGroup().location]",
         "rgId": "[resourceGroup().id]",
-        "rgName": "[resourceGroup().name]",
 
         "tenantId": "[subscription().tenantId]",
-        "paramName": "[parameters('prefixName')]",
+        "paramName": "[parameters('suffixName')]",
         "storageContainer": "data",
 
         "uniqueName": "[substring(uniqueString(variables('rgId')),0,4)]",
@@ -122,12 +123,16 @@
         },
         {
             "type": "Microsoft.Synapse/workspaces",
-            "apiVersion": "2020-12-01",
+            "apiVersion": "2021-06-01",
             "name": "[variables('synapseWorkspaceName')]",
             "location": "[variables('location')]",
             "identity": {
                 "type": "SystemAssigned"
             },
+            "dependsOn": [
+                "[resourceId('Microsoft.Storage/storageAccounts/blobServices', variables('storageName'), 'default')]",
+                "[resourceId('Microsoft.Storage/storageAccounts', variables('storageName'))]"
+            ],
             "properties": {
                 "defaultDataLakeStorage": {
                     "accountUrl": "[concat('https://', variables('storageName') , '.dfs.core.windows.net')]",
@@ -142,7 +147,7 @@
                 {
                     "condition": "[equals(parameters('AllowAll'),'true')]",
                     "type": "firewallrules",
-                    "apiVersion": "2019-06-01-preview",
+                    "apiVersion": "2021-06-01",
                     "name": "allowAll",
                     "location": "[variables('location')]",
                     "dependsOn": [ "[variables('synapseWorkspaceName')]" ],
@@ -155,7 +160,7 @@
         },
         {
             "type": "Microsoft.Synapse/workspaces/bigDataPools",
-            "apiVersion": "2020-12-01",
+            "apiVersion": "2021-06-01",
             "name": "[concat(variables('synapseWorkspaceName'), '/spark1')]",
             "location": "[variables('location')]",
             "dependsOn": [
@@ -180,8 +185,7 @@
                 "cacheSize": 0,
                 "dynamicExecutorAllocation": {
                     "enabled": true
-                },
-                "provisioningState": "Succeeded"
+                }
             }
         },
         
@@ -201,7 +205,7 @@
         {
             "type": "Microsoft.KeyVault/vaults",
             "apiVersion": "2020-04-01-preview",
-            "name": "[variables('keyvaultName')]",
+            "name": "[variables('keyvaultname')]",
             "location": "[variables('location')]",
             "properties": {
                 "sku": {
@@ -214,8 +218,7 @@
                 "enabledForDeployment": false,
                 "enableSoftDelete": true,
                 "enablePurgeProtection": true,
-                "vaultUri": "[concat('https://', variables('keyvaultName'), '.vault.azure.net/')]",
-                "provisioningState": "Succeeded"
+                "vaultUri": "[concat('https://', variables('keyvaultname'), '.vault.azure.net/')]"
             }
         },
         {
@@ -285,7 +288,8 @@
             "name": "[guid(uniqueString(variables('storageName')))]",
             "location": "[variables('location')]",
             "dependsOn": [
-              "[variables('synapseWorkspaceName')]"
+              "[variables('synapseWorkspaceName')]", 
+              "[variables('storageName')]"
             ],
             "properties": {
               "roleDefinitionId": "[resourceId('Microsoft.Authorization/roleDefinitions', variables('StorageBlobDataContributor'))]",

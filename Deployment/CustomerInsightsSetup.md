@@ -641,7 +641,7 @@ In this step you will bring the Lease Renewal Preductions data into the CI envir
 10. Select "Run" 
 
 # Step 11: Power BI Set Up 
-1. Open the [Power BI report](./Report/Customer360Dashboard.pbix) in this repository
+1. Open the [Power BI report](https://github.com/microsoft/Azure-Synapse-Customer-Insights-Customer360-Solution-Accelerator/tree/main/Report/Customer360Dashboard.pbix) in this repository
 
 
 2. Click the Transform data dropdown and click Data source settings 

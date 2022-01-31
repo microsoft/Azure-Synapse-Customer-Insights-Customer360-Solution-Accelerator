@@ -116,7 +116,7 @@ In order to perform the necessary actions in Customer Insights, you will need to
 > * **Note**: if you cannot find the `Dynamics 365 AI for Customer Insights` service principle, [Follow the steps here](https://docs.microsoft.com/en-us/dynamics365/customer-insights/audience-insights/connect-service-principal#grant-permissions-to-the-service-principal-to-access-the-storage-account) to grant the `Dynamics 365 AI for Customer Insights` access to the ADLS Gen 2 storage account you are using for this solution.
 
 ## Step 5.2: Set Up CI
-1. Navigate to the [CI Set Up Documentaion](./CustomerInsightsSetup.md) and follow the steps to set up the Customer Insights Environment. 
+1. Navigate to the [CI Set Up Documentation](./CustomerInsightsSetup.md) and follow the steps to set up the Customer Insights Environment. 
 
 # Step 6: Set Up AML Pipeline
 1. Launch the Azure Machine Learning studio [AML Studio](https://ml.azure.com/)
@@ -173,4 +173,4 @@ In this step you will create the Inferencing Pipeline
 
 
 # Step 8: Continue with CI Set Up 
-1. Navigate to Step 4 in the [CI Set Up Documentaion](https://github.com/microsoft/Azure-Synapse-Customer-Insights-Customer360-Solution-Accelerator/blob/main/Deployment/CustomerInsightsSetup.md#step-4-relationship)
+1. Navigate to Step 4 in the [CI Set Up Documentation](https://github.com/microsoft/Azure-Synapse-Customer-Insights-Customer360-Solution-Accelerator/blob/main/Deployment/CustomerInsightsSetup.md#step-4-relationship)

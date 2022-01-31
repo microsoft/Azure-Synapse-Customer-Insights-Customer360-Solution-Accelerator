@@ -171,7 +171,7 @@ The last step is merging the records. If fields need to be combined, that can be
 
 ![Unify Export](./ci_img/UnifyExportSynapse.png)
 
-4. Navigate to **Step 6** in the [Azure Set Up Documentaion](https://github.com/microsoft/Azure-Synapse-Customer-Insights-Customer360-Solution-Accelerator/blob/main/Deployment/AzureSetup.md#step-6-set-up-aml-pipeline) and follow the Azure set up to complete Step 6 and 7. 
+4. Navigate to **Step 6** in the [Azure Set Up Documentation](https://github.com/microsoft/Azure-Synapse-Customer-Insights-Customer360-Solution-Accelerator/blob/main/Deployment/AzureSetup.md#step-6-set-up-aml-pipeline) and follow the Azure set up to complete Step 6 and 7. 
 
 # Step 4: Relationship
 Define the relationship between the Activity Entity 

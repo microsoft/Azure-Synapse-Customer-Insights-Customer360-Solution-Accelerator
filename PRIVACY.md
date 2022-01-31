@@ -5,14 +5,14 @@ When you deploy this template, Microsoft is able to identify the installation of
 To disable this, simply remove the following section from [deploy.json](./Deployment/deploy.json) before deploying the resources to Azure:
 
 ```json
-{
-    "apiVersion": "2018-02-01",
+{ 
+    "apiVersion": "2020-10-01",
     "name": "pid-7d4bca09-1beb-50cd-b4f9-13c3872d3591",
     "type": "Microsoft.Resources/deployments",
     "properties": {
         "mode": "Incremental",
         "template": {
-            "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+            "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
             "contentVersion": "1.0.0.0",
             "resources": []
         }

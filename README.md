@@ -1,6 +1,17 @@
-![Azure Synapse Customer Insights Customer 360 Solution Accelerator](./Deployment/img/Customer360SATitle.PNG)
+---
+page_type: sample
+languages:
+- python
+products:
+- azure-synapse-analytics
+- dynamics-cust-insights
+- azure-machine-learning
+- power-bi
+---
 
-## About this Repository 
+# Azure Synapse Customer Insights Customer360 Solution Accelerator
+
+![Azure Synapse Customer Insights Customer 360 Solution Accelerator](./Deployment/img/Customer360SATitle.PNG)
 
 Managing customer data from multiple sources and building a unified Customer 360 view is not a new challenge. But it is becoming increasingly difficult with increased number of interaction channels and touch-points with customers. By combining the power of Azure Synapse Analytics with Dynamics 365 Customer Insights, we can help organizations build a comprehensive view of customers and enable them to provide the best customer experience.
 

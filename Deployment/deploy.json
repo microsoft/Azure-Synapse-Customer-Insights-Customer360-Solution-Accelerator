@@ -169,12 +169,10 @@
             "properties": {
                 "sparkVersion": "2.4",
                 "nodeCount": 3,
-                "nodeSize": "Medium",
+                "nodeSize": "Small",
                 "nodeSizeFamily": "MemoryOptimized",
                 "autoScale": {
-                    "enabled": true,
-                    "minNodeCount": 3,
-                    "maxNodeCount": 6
+                    "enabled": false
                 },
                 "autoPause": {
                     "enabled": true,
@@ -184,7 +182,7 @@
                 "sessionLevelPackagesEnabled": false,
                 "cacheSize": 0,
                 "dynamicExecutorAllocation": {
-                    "enabled": true
+                    "enabled": false
                 }
             }
         },

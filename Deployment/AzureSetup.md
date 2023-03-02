@@ -8,7 +8,7 @@ Clone or download this repository and navigate to the project's root directory.
 
 ### Step 2.1: Add your IP address to Azure Synapse Analytics firewall
 Before you can upload assests to the Synapse Workspace you will need to add your IP address:
-1. Go to the Synapse resouce you created in the previous step. 
+1. Go to the Synapse resource you created in the previous step. 
 2. Navigate to `Networking` under `Security` on the left hand side of the page.
 3. At the top of the screen click `+ Add client IP`
     ![Update Firewalls](./img/deploy-firewall.png)  
